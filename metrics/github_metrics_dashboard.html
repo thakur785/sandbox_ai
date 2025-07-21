@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Metrics Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f6f8fa;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .metric-unit {
+            color: #888;
+            font-size: 0.8em;
+        }
+        .charts-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .chart {
+            margin: 20px 0;
+        }
+        .summary-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .deployment-freq { color: #0366d6; }
+        .lead-time { color: #28a745; }
+        .mttr { color: #ffa500; }
+        .failure-rate { color: #d73a49; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 GitHub Metrics Dashboard</h1>
+            <p>Generated on July 21, 2025 at 10:40 AM</p>
+            <p>Collection Period: 30 days | Repositories: 3</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Deployment Frequency</div>
+                <div class="metric-value deployment-freq">3.5</div>
+                <div class="metric-unit">per week</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Lead Time (Median)</div>
+                <div class="metric-value lead-time">22.0h</div>
+                <div class="metric-unit">hours</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">MTTR</div>
+                <div class="metric-value mttr">6.8h</div>
+                <div class="metric-unit">hours</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Change Failure Rate</div>
+                <div class="metric-value failure-rate">8.0%</div>
+                <div class="metric-unit">percentage</div>
+            </div>
+        </div>
+
+        <div class="charts-section">
+            <h2>📊 Pull Request Metrics</h2>
+            <div id="pr-cycle-chart" class="chart"></div>
+            <div id="pr-size-chart" class="chart"></div>
+        </div>
+
+        <div class="charts-section">
+            <h2>👥 Team Productivity</h2>
+            <div id="productivity-chart" class="chart"></div>
+        </div>
+
+        <div class="summary-section">
+            <h2>📋 Summary</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <h3>🎯 DORA Performance</h3>
+                    <ul>
+                        <li><strong>Deployment Frequency:</strong> 3.5 deployments/week</li>
+                        <li><strong>Lead Time:</strong> 22.0 hours median</li>
+                        <li><strong>Recovery Time:</strong> 6.8 hours average</li>
+                        <li><strong>Failure Rate:</strong> 8.0%</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>🔄 Pull Request Health</h3>
+                    <ul>
+                        <li><strong>Total PRs:</strong> 125</li>
+                        <li><strong>Merge Rate:</strong> 76.0%</li>
+                        <li><strong>Average Cycle Time:</strong> 32.4 hours</li>
+                        <li><strong>Average Reviews:</strong> 4.2 comments</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>⚡ Team Activity</h3>
+                    <ul>
+                        <li><strong>Total Commits:</strong> 380</li>
+                        <li><strong>Active Contributors:</strong> 12</li>
+                        <li><strong>Commits per Author:</strong> 31.7</li>
+                        <li><strong>Collaboration Pairs:</strong> 45</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PR Cycle Time Chart
+        var cycleTimeData = [{
+            x: ['Mean', 'Median', '75th %ile', '95th %ile'],
+            y: [32.4, 
+                24.8, 
+                45.2, 
+                95.6],
+            type: 'bar',
+            marker: {color: '#0366d6'}
+        }];
+        
+        var cycleTimeLayout = {
+            title: 'PR Cycle Time Distribution',
+            xaxis: {title: 'Percentile'},
+            yaxis: {title: 'Hours'},
+            margin: {t: 40}
+        };
+        
+        Plotly.newPlot('pr-cycle-chart', cycleTimeData, cycleTimeLayout);
+
+        // PR Size Chart
+        var prSizeData = [{
+            labels: ['Merged', 'Open', 'Closed (not merged)'],
+            values: [95, 
+                    15, 
+                    15],
+            type: 'pie',
+            marker: {colors: ['#28a745', '#ffa500', '#d73a49']}
+        }];
+        
+        var prSizeLayout = {
+            title: 'PR Status Distribution',
+            margin: {t: 40}
+        };
+        
+        Plotly.newPlot('pr-size-chart', prSizeData, prSizeLayout);
+
+        // Productivity Chart
+        var productivityData = [{
+            x: ['Commits', 'Pull Requests', 'Authors', 'Avg Reviews/PR'],
+            y: [380, 
+                125, 
+                12, 
+                4.2],
+            type: 'bar',
+            marker: {color: ['#28a745', '#0366d6', '#6f42c1', '#e36209']}
+        }];
+        
+        var productivityLayout = {
+            title: 'Team Productivity Overview',
+            xaxis: {title: 'Metric'},
+            yaxis: {title: 'Count'},
+            margin: {t: 40}
+        };
+        
+        Plotly.newPlot('productivity-chart', productivityData, productivityLayout);
+    </script>
+</body>
+</html>
