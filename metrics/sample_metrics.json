@@ -1,0 +1,94 @@
+{
+  "timestamp": "2025-07-20T10:30:00",
+  "collection_period": {
+    "start_date": "2025-06-20T10:30:00",
+    "end_date": "2025-07-20T10:30:00",
+    "days": 30
+  },
+  "repositories": [
+    "microsoft/vscode",
+    "facebook/react",
+    "your-org/your-repo"
+  ],
+  "data_summary": {
+    "pull_requests": 125,
+    "issues": 45,
+    "commits": 380,
+    "deployments": 15
+  },
+  "dora_metrics": {
+    "deployment_frequency": {
+      "deployments_per_week": 3.5,
+      "deployments_per_day": 0.5,
+      "total_deployments": 15,
+      "period_days": 30
+    },
+    "lead_time_for_changes": {
+      "mean_lead_time_hours": 28.5,
+      "median_lead_time_hours": 22.0,
+      "p95_lead_time_hours": 85.2,
+      "total_merged_prs": 95
+    },
+    "mean_time_to_recovery": {
+      "mean_recovery_time_hours": 6.8,
+      "median_recovery_time_hours": 4.5,
+      "total_incidents": 8
+    },
+    "change_failure_rate": {
+      "change_failure_rate": 0.08,
+      "total_deployments": 15,
+      "total_bugs": 2,
+      "period_days": 30
+    }
+  },
+  "pr_metrics": {
+    "cycle_time_analysis": {
+      "mean_cycle_time_hours": 32.4,
+      "median_cycle_time_hours": 24.8,
+      "p75_cycle_time_hours": 45.2,
+      "p95_cycle_time_hours": 95.6,
+      "min_cycle_time_hours": 2.1,
+      "max_cycle_time_hours": 168.5,
+      "total_prs": 125
+    },
+    "review_analysis": {
+      "mean_review_comments": 4.2,
+      "median_review_comments": 3.0,
+      "mean_total_comments": 6.8,
+      "median_total_comments": 5.0,
+      "mean_pr_size": 185,
+      "median_pr_size": 125,
+      "prs_with_no_reviews": 8,
+      "total_prs": 125
+    },
+    "merge_analysis": {
+      "total_prs": 125,
+      "merged_prs": 95,
+      "closed_unmerged_prs": 15,
+      "open_prs": 15,
+      "merge_rate": 0.76,
+      "rejection_rate": 0.12
+    }
+  },
+  "productivity_metrics": {
+    "developer_activity": {
+      "commit_activity": {
+        "total_commits": 380,
+        "total_authors": 12,
+        "mean_commits_per_author": 31.7,
+        "mean_changes_per_commit": 42.3
+      },
+      "pr_activity": {
+        "total_prs": 125,
+        "pr_authors": 10,
+        "mean_prs_per_author": 12.5,
+        "mean_pr_size": 185
+      }
+    },
+    "collaboration_metrics": {
+      "total_reviewers": 15,
+      "collaboration_pairs": 45,
+      "avg_reviewers_per_pr": 2.3
+    }
+  }
+}
