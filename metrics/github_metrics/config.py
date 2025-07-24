@@ -1,60 +1,31 @@
 """
 Configuration module for GitHub metrics collection.
+Simplified for Airflow 3.0+ compatibility.
 """
 
 import os
-from typing import List, Dict, Any
-from pydantic import BaseSettings, validator
+from typing import List, Dict, Any, Optional
 
+# Simple configuration constants for Airflow usage
+DEFAULT_COLLECTION_DAYS = 30
+DEFAULT_OUTPUT_DIR = "/tmp/github_metrics"
+DEFAULT_AIRFLOW_HOME = "/opt/airflow"
 
-class Settings(BaseSettings):
-    """Application settings with validation."""
+# Configuration that will be read from Airflow Variables at runtime
+def get_config_from_airflow_variables():
+    """
+    Get configuration from Airflow Variables.
+    This function should be called from within DAG tasks.
+    """
+    from airflow.models import Variable
     
-    # GitHub Configuration
-    github_token: str
-    github_repositories: List[str] = []
-    
-    # Collection Settings
-    metrics_collection_days: int = 30
-    collection_timezone: str = "UTC"
-    
-    # Airflow Settings
-    airflow_home: str = "/opt/airflow"
-    dag_schedule_interval: str = "@daily"
-    
-    # Database Settings (for future use)
-    database_url: str = "sqlite:///github_metrics.db"
-    
-    # Output Settings
-    metrics_output_dir: str = "/tmp/github_metrics"
-    enable_dashboard: bool = True
-    dashboard_host: str = "127.0.0.1"
-    dashboard_port: int = 8050
-    
-    # Logging
-    log_level: str = "INFO"
-    
-    class Config:
-        env_file = ".env"
-        env_prefix = "METRICS_"
-        case_sensitive = False
-    
-    @validator('github_repositories', pre=True)
-    def parse_repositories(cls, v):
-        if isinstance(v, str):
-            # Parse comma-separated string
-            return [repo.strip() for repo in v.split(',') if repo.strip()]
-        return v
-    
-    @validator('github_token')
-    def validate_github_token(cls, v):
-        if not v or len(v) < 20:
-            raise ValueError('GitHub token must be provided and valid')
-        return v
-
-
-# Global settings instance
-settings = Settings()
+    return {
+        'github_token': Variable.get("GITHUB_TOKEN", default_var=None),
+        'github_repositories': Variable.get("GITHUB_REPOSITORIES", default_var=[], deserialize_json=True),
+        'collection_days': int(Variable.get("METRICS_COLLECTION_DAYS", default_var=str(DEFAULT_COLLECTION_DAYS))),
+        'output_dir': Variable.get("METRICS_OUTPUT_PATH", default_var=DEFAULT_OUTPUT_DIR),
+        'team_members': Variable.get("TEAM_MEMBERS", default_var=[], deserialize_json=True)
+    }
 
 
 # Airflow Variables configuration

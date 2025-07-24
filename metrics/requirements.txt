@@ -1,22 +1,20 @@
-# Core dependencies
+# Philips Internal GitHub Metrics Collection
+# Specialized dependencies for synergy-base repository and hmp-synergy-blr team
+
+# Core Airflow for automation
 apache-airflow>=2.10.0
-apache-airflow-providers-postgres>=5.10.0
 apache-airflow-providers-http>=4.7.0
 
-# GitHub integration
+# GitHub API integration for Philips Internal
 PyGithub==2.1.1
 requests==2.31.0
 
-# Data processing
+# Data processing for metrics calculation
 pandas==2.1.4
 numpy==1.24.3
 python-dateutil==2.8.2
 
-# Database
-psycopg2-binary==2.9.9
-SQLAlchemy==1.4.52
-
-# Visualization and Dashboard
+# Visualization for Philips dashboards  
 plotly==5.17.0
 dash>=2.15.0
 dash-bootstrap-components>=1.5.0

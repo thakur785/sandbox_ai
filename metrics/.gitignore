@@ -27,7 +27,6 @@ wheels/
 
 # Generated files
 sample_metrics_results.json
-github_metrics_dashboard.html
 .env.template
 
 # IDE
@@ -43,3 +42,12 @@ Thumbs.db
 # Backup files
 *_old.*
 *_backup.*
+
+# Airflow
+airflow_home/
+airflow_deployment/
+airflow.db
+airflow.cfg
+logs/
+airflow_variables.json
+webserver_config.py
